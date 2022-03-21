@@ -90,6 +90,10 @@ section h1 .term {
   font-style: italic;
 }
 
+section h1 .pattern {
+  text-transform: uppercase;
+}
+
 section h1 .def::before {
   content: "'";
 }
