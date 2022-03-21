@@ -1,6 +1,7 @@
 * {
   font-family: 'Times New Roman', serif;
   font-weight: 100;
+  font-size: inherit;
 }
 
 /* html {
@@ -24,33 +25,35 @@ header {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 2rem 0;
+  padding: 2rem 0rem;
   box-sizing: border-box;
 }
 
-header > h1 {
+header h1 {
   font-size: 1.75rem;
   margin: 0;
 }
 
-header > input {
+header input {
   border: none;
   outline: none;
   font-size: 1rem;
-  padding-bottom: 0.25rem;
+  padding: 0rem;
+  padding-bottom: 0.15rem;
+  border-radius: 0;
 }
 
-header > input:focus {
-  /* border-bottom: 0.09rem solid black; */
+header input:focus {
+  border-bottom: 0.1rem solid black;
 }
 
-header > p {
+header p {
   font-style: italic;
   font-size: 0.85rem;
   margin: 0;
 }
 
-header > p:first-of-type {
+header p:first-of-type {
   margin-top: auto;
 }
 
@@ -58,100 +61,153 @@ main {
   width: 25rem;
   min-width: 25rem;
   box-sizing: border-box;
+  padding: 2rem 0rem;
+  font-size: 0.85rem;
   /* overflow: scroll; */
 }
 
-main > section {
+main section {
   padding: 2rem 1rem;
   box-sizing: border-box;
 }
 
-main > section:not(:last-of-type) {
-  /* border-bottom: 0.09rem solid black; */
+main section:first-of-type {
+  padding-top: 0rem;
 }
 
-section > h1 {
-  font-size: 1rem;
+section h1 {
+  font-size: inherit;
   margin-top: 0;
 }
 
 
 
-section > h1 > span:not(:last-of-type) {
+section h1 span:not(:last-of-type) {
   margin-right: 0.25rem;
 }
 
-section > h1 > .term {
+section h1 .term {
   font-style: italic;
 }
 
-section > h1 > .def::before {
+section h1 .def::before {
   content: "'";
 }
-section > h1 > .def::after {
+section h1 .def::after {
   content: "'";
 }
 
 
-section > h1 > .root {
+section h1 .root {
   font-style: italic;
 }
-section > h1 > .root::before {
+section h1 .root::before {
   font-style: normal;
   content: "(root ";
 }
-section > h1 > .root::after {
+section h1 .root::after {
   font-style: normal;
   content: ")";
 }
 
-section > div::before {
+section div::before {
   display: inline-block;
   width: 12rem;
-  font-size: 1rem;
 }
-section > .pres::before {
+section .pres::before {
   content: "Present template";
 }
-section > .pst::before {
+section .pst::before {
   content: "Past template";
 }
-section > .pres::after, .pst::after {
+section .pres::after, .pst::after {
   content: "-";
 }
-section > .rsp::before {
+section .rsp::before {
   content: "Resultative particle";
 }
-section > .imper::before {
+section .imper::before {
   content: "Imperative";
 }
-section > .inf::before {
+section .inf::before {
   content: "Infinitive";
 }
-section > .prog::before {
+section .prog::before {
   content: "Progressive";
 }
-section > .vn::before {
+section .vn::before {
   content: "Verbal noun";
 }
-section > .ap::before {
+section .ap::before {
   content: "Active particle";
 }
 
+#explanation table {
+  font-size: 0.85rem;
+}
+
+table  {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+table td{
+  border: none;
+  overflow: hidden;
+  padding: 0.25rem 0.5rem;
+  word-break:normal;
+}
+table th{
+  border: none;
+  overflow: hidden;
+  padding: 0rem;
+  word-break: normal;
+}
+table .tg-baqh{
+  text-align: center;
+  vertical-align: top;
+}
+table .tg-0lax{
+  text-align: left;
+  vertical-align: top;
+}
+
+
 @supports (-webkit-touch-callout: none) {
   :root {
-    font-size: 3em;
+    font-size: 2.5em;
+  }
+
+  html {
+    overflow-x: hidden;
   }
   
   body {
-    flex-direction: column;
-    align-items: center;
-    padding: 0rem 2rem;
+    display: block;
+    width: 100vw;
     min-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  header {
+    width: 100%;
+    min-width: 100%;
+    height: 18rem;
+    padding: 2rem;
   }
 
   main {
     width: 100%;
     min-width: 100%;
+    padding: 2rem;
+  }
+
+  main section {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #explanation {
+    display: none;
   }
 }
