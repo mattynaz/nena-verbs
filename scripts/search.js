@@ -49,6 +49,7 @@ class Verb {
 
 filter = async _ => {
   search = document.querySelector('input').value
+  document.querySelector('#explanation').style.display = search ? 'none' : 'block'
   for (const verb of VERBS) {
     await verb.relates_to(search) ? verb.show() : verb.hide()
   }
@@ -59,6 +60,11 @@ fetch('data.json')
   .then(response => response.text())
   .then(text => JSON.parse(text))
   .then(json => json.forEach(verb => new Verb(verb)))
+  .then(_ => {
+    hello_message = document.createElement('p')
+    hello_message.innerHTML = `This website presents the various inflections of ${VERBS.length} Assyrian verbs. Use the search bar on the left-hand side to search for various verbs by their English definition.`
+    document.querySelector('#explanation').prepend(hello_message)
+  })
 
 
 // fetch('recipes/published_recipes.md')
@@ -66,3 +72,4 @@ fetch('data.json')
 //   .then(text => [...text.matchAll(/# ([^\n]+)(?:\s*- id: *([a-z]*))(?:\s*- tags: *([a-z\d, ]*))?/gi)])
 //   .then(matches => matches.map(match => match.slice(1)))
 //   .then(recipes => recipes.forEach(recipe => new Recipe(recipe)))
+

@@ -11,7 +11,7 @@
 body {
   margin: 0;
   width: 100vw;
-  min-width: 60rem;
+  min-width: 55rem;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -44,7 +44,7 @@ header input {
 }
 
 header input:focus {
-  border-bottom: 0.1rem solid black;
+  border-bottom: 0.09rem solid black;
 }
 
 header p {
@@ -61,7 +61,7 @@ main {
   width: 25rem;
   min-width: 25rem;
   box-sizing: border-box;
-  padding: 2rem 0rem;
+  padding: 0rem;
   font-size: 0.85rem;
   /* overflow: scroll; */
 }
@@ -69,10 +69,6 @@ main {
 main section {
   padding: 2rem 1rem;
   box-sizing: border-box;
-}
-
-main section:first-of-type {
-  padding-top: 0rem;
 }
 
 section h1 {
@@ -146,7 +142,16 @@ section .ap::before {
   content: "Active particle";
 }
 
+#explanation {
+  padding-top: 2rem;
+}
+
+#explanation p {
+  text-indent: 1rem;
+}
+
 #explanation table {
+  margin-top: 3rem;
   font-size: 0.85rem;
 }
 
