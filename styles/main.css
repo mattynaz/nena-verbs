@@ -150,6 +150,10 @@ section .ap::before {
   text-indent: 1rem;
 }
 
+#explanation p:first-of-type {
+  margin-top: 0rem;
+}
+
 #explanation table {
   margin-top: 3rem;
   font-size: 0.85rem;
