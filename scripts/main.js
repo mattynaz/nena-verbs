@@ -53,7 +53,6 @@ filter = async _ => {
   for (const verb of VERBS) {
     await verb.relates_to(search) ? verb.show() : verb.hide()
   }
-  //  VERBS.forEach(verb => verb.relates_to(search) ? verb.show() : verb.hide())
 }
 
 fetch('data.json')
@@ -66,10 +65,27 @@ fetch('data.json')
     document.querySelector('#explanation').prepend(hello_message)
   })
 
+let hide_collapsible = elem => {
+  if (!elem.matches('tr.collapsible')) return
 
-// fetch('recipes/published_recipes.md')
-//   .then(response => response.text())
-//   .then(text => [...text.matchAll(/# ([^\n]+)(?:\s*- id: *([a-z]*))(?:\s*- tags: *([a-z\d, ]*))?/gi)])
-//   .then(matches => matches.map(match => match.slice(1)))
-//   .then(recipes => recipes.forEach(recipe => new Recipe(recipe)))
+  elem.classList.toggle('collapsed')
 
+  let siblings = [];
+  let next = elem.nextElementSibling;
+  while (next) {
+    if (next.matches('tr.sec')) break
+    siblings.push(next)
+    next = next.nextElementSibling
+  }
+  siblings.forEach(elem => elem.classList.toggle('hide'))
+
+  previews = elem.querySelectorAll('td:not(:first-child)')
+  previews.forEach(elem => elem.classList.toggle('hide'))
+}
+
+document.querySelectorAll('tr.collapsible').forEach(elem => {
+  previews = elem.querySelectorAll('td:not(:first-child)')
+  previews.forEach(elem => elem.classList.toggle('hide'))
+  elem.querySelector('td:first-child').addEventListener('click', _ => hide_collapsible(elem))
+  hide_collapsible(elem)
+})

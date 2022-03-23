@@ -4,10 +4,6 @@
   font-size: inherit;
 }
 
-/* html {
-  font-size: 100%;
-} */
-
 body {
   margin: 0;
   width: 100vw;
@@ -62,6 +58,7 @@ main {
   min-width: 25rem;
   box-sizing: border-box;
   padding: 0rem;
+  padding-bottom: 2rem;
   font-size: 0.85rem;
   /* overflow: scroll; */
 }
@@ -167,23 +164,63 @@ table  {
 table td{
   border: none;
   overflow: hidden;
-  padding: 0.25rem 0.5rem;
-  word-break:normal;
+  word-break: normal;
+  min-width: 5.5rem;
 }
+
+table tr.collapsible td:first-child {
+  cursor: pointer;
+  overflow: visible;
+  user-select: none;
+}
+table tr.collapsible td:first-child::before {
+  content: '+';
+  font-weight: bold;
+  display: inline-block;
+  position: relative;
+  right: 1rem;
+  width: 0;
+}
+table tr.collapsible:not(.collapsed) td:first-child::before {
+  content: '–';
+}
+table tr.sec td{
+  padding-top: 0.5rem;
+}
+
+table td:not(:last-child) {
+  padding-right: 0.5rem;
+}
+
+table td:first-child {
+  padding-right: 1rem;
+}
+
+table .hide {
+  display: none;
+}
+
 table th{
   border: none;
   overflow: hidden;
   padding: 0rem;
   word-break: normal;
+  /* text-align: center; */
 }
-table .tg-baqh{
+table td.indent1 {
+  text-indent: 1rem;
+}
+table td.indent2 {
+  text-indent: 2rem;
+}
+
+table td.center {
   text-align: center;
-  vertical-align: top;
 }
-table .tg-0lax{
-  text-align: left;
-  vertical-align: top;
-}
+/* .tg .tg-0p91{border-color:inherit;font-family:"Times New Roman", Times, serif !important;text-align:center;vertical-align:top}
+.tg .tg-iucd{border-color:inherit;font-family:"Times New Roman", Times, serif !important;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top} */
+
 
 
 @supports (-webkit-touch-callout: none) {
