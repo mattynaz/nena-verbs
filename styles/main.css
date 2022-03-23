@@ -45,7 +45,7 @@ header input {
 }
 
 header input:focus {
-  border-bottom: 0.09rem solid black;
+  border-bottom: 0.1rem solid lightgray;
 }
 
 header p {
