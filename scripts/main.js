@@ -67,17 +67,14 @@ fetch('data.json')
 
 let hide_collapsible = elem => {
   if (!elem.matches('tr.collapsible')) return
-
   elem.classList.toggle('collapsed')
 
-  let siblings = [];
-  let next = elem.nextElementSibling;
+  let next = elem.nextElementSibling
   while (next) {
     if (next.matches('tr.sec')) break
-    siblings.push(next)
+    next.classList.toggle('hide')
     next = next.nextElementSibling
   }
-  siblings.forEach(elem => elem.classList.toggle('hide'))
 
   previews = elem.querySelectorAll('td:not(:first-child)')
   previews.forEach(elem => elem.classList.toggle('hide'))

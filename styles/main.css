@@ -4,6 +4,11 @@
   font-size: inherit;
 }
 
+sub {
+  font-size: 0.6rem;
+  line-height: 0;
+}
+
 body {
   margin: 0;
   width: 100vw;
@@ -156,11 +161,18 @@ section .ap::before {
   font-size: 0.85rem;
 }
 
+/* .table-wrapper {
+  overflow-x: scroll;
+} */
+
 table  {
   border: none;
   border-collapse: collapse;
   border-spacing: 0;
+  width: 5rem;
+  overflow-x: scroll;
 }
+
 table td{
   border: none;
   overflow: hidden;
