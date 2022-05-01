@@ -1,42 +1,69 @@
 const VERBS = []
 
-let template = `
-<h1>
-  <span class="term"></span>
-  <span class="pattern"></span>
-  <span class="def"></span>
-  <span class="root"></span>
-</h1>
-<div class="pres"></div>
-<div class="past"></div>
-<div class="rp"></div>
-<div class="imp"></div>
-<div class="inf"></div>
-<div class="prog"></div>
-<div class="vn"></div>
-<div class="ap"></div>
-`
+const PRETTY_NAMES = {
+  'pres'   : 'Present',
+  'pst'    : 'Past',
+  'rsp'    : 'Resultative',
+  'imper'  : 'Imperative',
+  'inf'    : 'Infinitive',
+  'prog'   : 'Progressive',
+  'vn'     : 'Verbal noun',
+  'ap'     : 'Active',
+  'hab'    : 'Habitual',
+  'future' : 'Future',
+  'stem'   : 'Stem',
+  's_suff' : 'S-suffx.',
+  's_long' : 'S-suffx. (long)',
+  'l'      : 'L-suffx.',
+}
+
+let isDict = dict => typeof dict === 'object' && !Array.isArray(dict)
+
+let firstVal = val => isDict(val) ? firstVal(Object.values(val)[0]) : val
+
+let tableToHtml = (table, level=0) => {
+    if (!isDict(table)) {return ''}
+    
+    let html = ''
+    for (let k in table) {
+        let v = table[k]
+        let left = k in PRETTY_NAMES ? PRETTY_NAMES[k] : k
+        let right = (!isDict(v) || level === 0) ? firstVal(v) : []
+        let classes = []
+        if (level === 0) {
+            classes.push('section')
+            if (isDict(v)) {
+                classes.push('collapsible')
+            }
+        }
+        let rest = tableToHtml(v, level+1)
+        html += `<tr class="${classes.join(' ')}">
+  <td class="indent${level}">${left}</td>
+  <td>${right.join('~')}</td>
+</tr>
+${rest}`
+  }
+
+  return html
+}
+
 
 class Verb {
-  constructor(verb) {
-    this.verb = verb
-    this.search_fields = [this.verb.def]
+  constructor(verb_dict) {
+    this.search_fields = [verb_dict['definition'], verb_dict['word']]
     this.elem = document.createElement('section')
     this.elem.innerHTML = `
-    <h1>
-      <span class="term">${this.verb['term']}</span>
-      <span class="pattern">${this.verb['pattern']}</span>
-      <span class="def">${this.verb['def']}</span>
-      <span class="root">${this.verb['root']}</span>
-    </h1>
-    <div class="pres">${this.verb['forms']['pres']}</div>
-    <div class="pst">${this.verb['forms']['pst']}</div>
-    <div class="rsp">${this.verb['forms']['rsp']}</div>
-    <div class="imper">${this.verb['forms']['imper']}</div>
-    <div class="inf">${this.verb['forms']['inf']}</div>
-    <div class="prog">${this.verb['forms']['prog']}</div>
-    <div class="vn">${this.verb['forms']['vn']}</div>
-    <div class="ap">${this.verb['forms']['ap']}</div>
+    <table>
+    <thead>
+    <tr><th colspan="2">
+      <span class="word">${verb_dict['word']}</span>
+      <span class="pattern">${verb_dict['pattern']}</span>
+      (root <span class="root">${verb_dict['root']}</span>)
+      <span class="definition">${verb_dict['definition']}</span>
+    </th></tr>
+    </thead>
+    <tbody>${tableToHtml(verb_dict['table'])}</tbody>
+    </table>
     `
     document.querySelector('main').append(this.elem)
     this.hide()
@@ -47,12 +74,28 @@ class Verb {
   show = _ => this.elem.style.display = 'block'
 }
 
-filter = async _ => {
+
+let filter = async _ => {
   search = document.querySelector('input').value
   document.querySelector('#explanation').style.display = search ? 'none' : 'block'
   for (const verb of VERBS) {
     await verb.relates_to(search) ? verb.show() : verb.hide()
   }
+}
+
+let hide_collapsible = elem => {
+  if (!elem.matches('tr.collapsible')) return
+  elem.classList.toggle('collapsed')
+
+  let next = elem.nextElementSibling
+  while (next) {
+    if (next.matches('tr.section')) break
+    next.classList.toggle('hide')
+    next = next.nextElementSibling
+  }
+
+  previews = elem.querySelectorAll('td:not(:first-child)')
+  previews.forEach(elem => elem.classList.toggle('hide'))
 }
 
 fetch('data.json')
@@ -64,25 +107,11 @@ fetch('data.json')
     hello_message.innerHTML = `This website presents the various inflections of ${VERBS.length} Assyrian verbs. Use the search bar on the left-hand side to search for various verbs by their English definition.`
     document.querySelector('#explanation').prepend(hello_message)
   })
-
-let hide_collapsible = elem => {
-  if (!elem.matches('tr.collapsible')) return
-  elem.classList.toggle('collapsed')
-
-  let next = elem.nextElementSibling
-  while (next) {
-    if (next.matches('tr.sec')) break
-    next.classList.toggle('hide')
-    next = next.nextElementSibling
-  }
-
-  previews = elem.querySelectorAll('td:not(:first-child)')
-  previews.forEach(elem => elem.classList.toggle('hide'))
-}
-
-document.querySelectorAll('tr.collapsible').forEach(elem => {
-  previews = elem.querySelectorAll('td:not(:first-child)')
-  previews.forEach(elem => elem.classList.toggle('hide'))
-  elem.querySelector('td:first-child').addEventListener('click', _ => hide_collapsible(elem))
-  hide_collapsible(elem)
-})
+  .then(_ => {
+    document.querySelectorAll('tr.collapsible').forEach(elem => {
+      previews = elem.querySelectorAll('td:not(:first-child)')
+      previews.forEach(elem => elem.classList.toggle('hide'))
+      elem.querySelector('td:first-child').addEventListener('click', _ => hide_collapsible(elem))
+      hide_collapsible(elem)
+    })
+  })

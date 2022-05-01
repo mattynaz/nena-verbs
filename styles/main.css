@@ -12,7 +12,7 @@ sub {
 body {
   margin: 0;
   width: 100vw;
-  min-width: 55rem;
+  min-width: 60rem;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -80,68 +80,30 @@ section h1 {
 
 
 
-section h1 span:not(:last-of-type) {
+/* section span:not(:last-of-type) {
   margin-right: 0.25rem;
-}
+} */
 
-section h1 .term {
+section .term {
   font-style: italic;
 }
 
-section h1 .pattern {
+section .pattern {
   text-transform: uppercase;
+  padding: 0 0.25rem;
 }
 
-section h1 .def::before {
-  content: "'";
-}
-section h1 .def::after {
-  content: "'";
-}
-
-
-section h1 .root {
+section .root {
   font-style: italic;
 }
-section h1 .root::before {
-  font-style: normal;
-  content: "(root ";
-}
-section h1 .root::after {
-  font-style: normal;
-  content: ")";
+
+section .definition {
+  margin-left: 0.5rem;
 }
 
 section div::before {
   display: inline-block;
   width: 12rem;
-}
-section .pres::before {
-  content: "Present template";
-}
-section .pst::before {
-  content: "Past template";
-}
-section .pres::after, .pst::after {
-  content: "-";
-}
-section .rsp::before {
-  content: "Resultative particle";
-}
-section .imper::before {
-  content: "Imperative";
-}
-section .inf::before {
-  content: "Infinitive";
-}
-section .prog::before {
-  content: "Progressive";
-}
-section .vn::before {
-  content: "Verbal noun";
-}
-section .ap::before {
-  content: "Active particle";
 }
 
 #explanation {
@@ -173,11 +135,15 @@ table  {
   overflow-x: scroll;
 }
 
-table td{
+table td {
   border: none;
   overflow: hidden;
   word-break: normal;
   min-width: 5.5rem;
+}
+
+table td:first-child {
+  width: 7rem;
 }
 
 table tr.collapsible td:first-child {
@@ -190,14 +156,14 @@ table tr.collapsible td:first-child::before {
   font-weight: bold;
   display: inline-block;
   position: relative;
-  right: 1rem;
+  right: 0.75rem;
   width: 0;
 }
 table tr.collapsible:not(.collapsed) td:first-child::before {
   content: '–';
 }
-table tr.sec td{
-  padding-top: 0.5rem;
+table tr.section td{
+  /* padding-top: 0.5rem; */
 }
 
 table td:not(:last-child) {
@@ -219,9 +185,11 @@ table th{
   word-break: normal;
   /* text-align: center; */
 }
+
 table td.indent1 {
   text-indent: 1rem;
 }
+
 table td.indent2 {
   text-indent: 2rem;
 }
@@ -229,11 +197,23 @@ table td.indent2 {
 table td.center {
   text-align: center;
 }
-/* .tg .tg-0p91{border-color:inherit;font-family:"Times New Roman", Times, serif !important;text-align:center;vertical-align:top}
-.tg .tg-iucd{border-color:inherit;font-family:"Times New Roman", Times, serif !important;text-align:left;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top} */
 
+section thead {
+  text-align: left;
+}
 
+section thead th {
+  padding-bottom: 0.25rem;
+}
+
+section tbody tr td:first-child {
+  padding-left: 0.75rem;
+  /* border: 1px solid red; */
+}
+
+section table {
+  width: 100%;
+}
 
 @supports (-webkit-touch-callout: none) {
   :root {
