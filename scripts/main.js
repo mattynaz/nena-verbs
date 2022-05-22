@@ -50,7 +50,7 @@ ${rest}`
 
 class Verb {
   constructor(verb_dict) {
-    this.search_fields = [verb_dict['definition'], verb_dict['word']]
+    this.search_fields = [verb_dict['definition'], verb_dict['word'], verb_dict['root']]
     this.elem = document.createElement('section')
     this.elem.innerHTML = `
     <table>
