@@ -13,8 +13,8 @@ const PRETTY_NAMES = {
   'future' : 'Future',
   'stem'   : 'Stem',
   's_suff' : 'S-suffx.',
-  's_long' : 'S-suffx. (long)',
-  'l'      : 'L-suffx.',
+  's_long_suff' : 'S-suffx. (long)',
+  'l_suff' : 'L-suffx.',
 }
 
 let isDict = dict => typeof dict === 'object' && !Array.isArray(dict)
@@ -28,7 +28,7 @@ let tableToHtml = (table, level=0) => {
     for (let k in table) {
         let v = table[k]
         let left = k in PRETTY_NAMES ? PRETTY_NAMES[k] : k
-        let right = (!isDict(v) || level === 0) ? firstVal(v) : []
+        let right = (!isDict(v) || level === 0) ? firstVal(v) : 'N/A'
         let classes = []
         if (level === 0) {
             classes.push('section')
@@ -39,7 +39,7 @@ let tableToHtml = (table, level=0) => {
         let rest = tableToHtml(v, level+1)
         html += `<tr class="${classes.join(' ')}">
   <td class="indent${level}">${left}</td>
-  <td>${right.join('~')}</td>
+  <td>${right}</td>
 </tr>
 ${rest}`
   }
