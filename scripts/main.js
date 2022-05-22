@@ -28,7 +28,7 @@ let tableToHtml = (table, level=0) => {
     for (let k in table) {
         let v = table[k]
         let left = k in PRETTY_NAMES ? PRETTY_NAMES[k] : k
-        let right = (!isDict(v) || level === 0) ? firstVal(v) : 'N/A'
+        let right = (!isDict(v) || level === 0) ? firstVal(v) : ''
         let classes = []
         if (level === 0) {
             classes.push('section')
